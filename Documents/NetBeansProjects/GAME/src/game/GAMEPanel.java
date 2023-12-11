@@ -53,5 +53,5 @@ public class GAMEPanel  extends JPanel implements ActionListener{
     }
     
     public class MyKeyAdapter extends KeyAdapter{
-    
+    }
 }
