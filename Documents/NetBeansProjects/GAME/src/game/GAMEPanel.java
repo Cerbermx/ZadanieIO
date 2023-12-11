@@ -4,11 +4,11 @@
  */
 package game;
 
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.JPanel;
+import javax.swing.*;
+import java.util.Random;
 
 /**
  *
@@ -16,8 +16,24 @@ import javax.swing.JPanel;
  */
 public class GAMEPanel  extends JPanel implements ActionListener{
     
+    static final int SCREEN_WIDTH = 900;
+    static final int SCREEN_HEIGHT = 900;
+    static final int UNIT_SIZE = 25;
+    static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
+    static final int DELAY = 75;
+    final int x[] = new int [GAME_UNITS];
+    final int y[] = new int [GAME_UNITS];
+    int bodyParts = 6;
+    int applesEaten;
+    int appleX;
+    int appleY;
+    char direction = 'U';
+    boolean running = false;
+    Timer timer;
+    Random random;
+    
     GAMEPanel(){
-        
+    
     }
     
     public void startGame(){
@@ -53,5 +69,9 @@ public class GAMEPanel  extends JPanel implements ActionListener{
     }
     
     public class MyKeyAdapter extends KeyAdapter{
+        @Override
+        public void keyPressed(KeyEvent e){
+            
+        }
     }
 }
