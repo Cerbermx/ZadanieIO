@@ -27,7 +27,7 @@ public class GAMEPanel  extends JPanel implements ActionListener{
     int applesEaten;
     int appleX;
     int appleY;
-    char direction = 'U';
+    char direction = 'R';
     boolean running = false;
     Timer timer;
     Random random;
@@ -65,6 +65,17 @@ public class GAMEPanel  extends JPanel implements ActionListener{
         g.setColor(Color.red);
         g.fillOval(appleX,appleY,UNIT_SIZE,UNIT_SIZE);
         
+        for(int i = 0; i< bodyParts;i++) {
+            if(i == 0){
+              g.setColor(Color.green);
+              g.fillRect(x[i], y[i],UNIT_SIZE,UNIT_SIZE);
+            }
+            else{
+                g.setColor(new Color(45,180,0));
+                g.fillRect(x[i], y[i],UNIT_SIZE,UNIT_SIZE);
+            }
+        }
+        
     }
     public void newApple(){
         appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE))*UNIT_SIZE;
@@ -72,15 +83,50 @@ public class GAMEPanel  extends JPanel implements ActionListener{
         
     }
     public void move(){
-        
+        for(int i = bodyParts;i>0;i--){
+            x[i] = x[i-1];
+            y[i] = y[i-1];
+        }
+        switch(direction) {
+        case 'U':
+            y[0] = y[0] - UNIT_SIZE;
+            break;
+        case 'D':
+            y[0] = y[0] + UNIT_SIZE;
+            break;
+        case 'L':
+            x[0] = x[0] - UNIT_SIZE;
+            break;
+        case 'R':
+            x[0] = x[0] + UNIT_SIZE;
+            break;
+        }
     }
     
     public void checkApple(){
         
     }
     public void checkCollisions(){
-        
-       
+        for(int i = bodyParts;i>0;i--){
+            if((x[0] == x[i])&& (y[0] == y[i])){
+                running = false;
+            }
+        }
+        if(x[0] < 0){
+            running = false;    
+        }
+        if(x[0] > SCREEN_WIDTH){
+            running = false;
+        }
+        if(y[0] < 0){
+            running = false;
+        }
+        if(y[0] > SCREEN_HEIGHT){
+            running = false;
+        }
+        if(!running) {
+            timer.stop();
+        }
     }
     
     public void gameOver(Graphics g){
@@ -88,6 +134,13 @@ public class GAMEPanel  extends JPanel implements ActionListener{
     }
     
     public void actionPerformed(ActionEvent e){
+        
+        if(running) {
+            move();
+            checkApple();
+            checkCollisions();
+        }
+        repaint();
         
     }
     
